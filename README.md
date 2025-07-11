@@ -23,7 +23,7 @@ Weather API (68ea28a016844aa488c87d60da78809f)
 📂 How to Use
 Clone the repository
 
-git clone https://github.com/your-username/weather-app.git
+git clone https://github.com/https://github.com/dishajain2605/weather-app.git
 Open index.html in your browser
 
 Type any city name and get real-time weather data instantly!
