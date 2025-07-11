@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .weather-container {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      display: inline-block;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 200px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #ffffff;
+      color: #333;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-container">
+    <h1>Check the Weather</h1>
+    <input type="text" id="locationInput" placeholder="Enter location..." />
+    <button onclick="getWeather()">Get Temperature</button>
+    <div class="result" id="weatherResult"></div>
+  </div>
+
+  <script>
+    async function getWeather() {
+      const location = document.getElementById('locationInput').value;
+      const resultDiv = document.getElementById('weatherResult');
+
+      if (!location) {
+        resultDiv.textContent = "Please enter a location.";
+        return;
+      }
+
+      const apiKey = "e414c66f34d44a2eac0133503250605";
+      const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(location)}&aqi=yes`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Location not found");
+
+        const data = await response.json();
+        const tempC = data.current.temp_c;
+        resultDiv.innerHTML = `Current temperature in <strong>${data.location.name}</strong> is <strong>${tempC}°C</strong>`;
+      } catch (error) {
+        resultDiv.textContent = "Could not retrieve weather data. Please check the location.";
+      }
+    }
+  </script>
+</body>
+</html>
